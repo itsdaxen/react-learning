@@ -1,0 +1,222 @@
+:root {
+  --primary-color: #4a6cf7;
+  --primary-dark: #3151d3;
+  --primary-light: #6b89f9;
+  --secondary-color: #00c7b6;
+  --text-color: #4a5568;
+  --text-dark: #1a202c;
+  --text-light: #718096;
+  --background-color: #f7fafc;
+  --card-background: #ffffff;
+  --border-color: #e2e8f0;
+  --border-light: #edf2f7;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.03), 0 5px 10px rgba(0, 0, 0, 0.05);
+  --shadow-primary: 0 4px 10px rgba(74, 108, 247, 0.2);
+  --border-radius: 8px;
+  --border-radius-sm: 4px;
+  --border-radius-lg: 12px;
+  --transition-standard: all 0.2s ease-in-out;
+  --font-primary: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+  background-color: var(--background-color);
+  font-family: var(--font-primary);
+  color: var(--text-color);
+  line-height: 1.6;
+  margin: 0;
+  padding: 2rem;
+  min-height: 100vh;
+  letter-spacing: -0.01em;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0;
+  padding: 12px 0;
+  letter-spacing: -0.02em;
+  position: relative;
+}
+
+.header h1::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: var(--primary-color);
+  border-radius: 1.5px;
+}
+
+.accordion-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0;
+  gap: 16px;
+}
+
+.accordion-item {
+  width: 100%;
+  margin: 0;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background-color: var(--card-background);
+  transition: var(--transition-standard);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  position: relative;
+}
+
+.accordion-item:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.accordion-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 0;
+  background: var(--primary-color);
+  transition: height 0.3s ease;
+}
+
+.accordion-item:hover::before {
+  height: 100%;
+}
+
+.accordion-item div {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  padding: 0.25rem 0;
+}
+
+.accordion-item h2 {
+  flex: 1;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin: 0;
+  transition: var(--transition-standard);
+}
+
+.accordion-item div:hover h2 {
+  color: var(--primary-color);
+  transform: translateX(4px);
+}
+
+.accordion-item span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--card-background);
+  background: var(--primary-color);
+  border-radius: 50%;
+  margin-right: 16px;
+  transition: var(--transition-standard);
+}
+
+.accordion-item div:hover span {
+  transform: scale(1.1);
+  box-shadow: var(--shadow-primary);
+}
+
+.accordion-item p {
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--text-light);
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-light);
+  line-height: 1.7;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Active state for accordion item */
+.accordion-item.active {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+  border-left-color: var(--primary-color);
+}
+
+.accordion-item.active::before {
+  height: 100%;
+}
+
+/* Active state for accordion header */
+.accordion-item.active div span {
+  background: var(--secondary-color);
+  transform: scale(1.05);
+  box-shadow: var(--shadow-primary);
+}
+
+.accordion-item.active h2 {
+  color: var(--primary-color);
+  transform: translateX(4px);
+}
+
+@media (max-width: 768px) {
+  .accordion-container {
+    padding: 0 12px;
+    gap: 12px;
+  }
+
+  .accordion-item {
+    padding: 1rem 1.25rem;
+  }
+
+  .header h1 {
+    font-size: 2rem;
+  }
+
+  .header h1::after {
+    width: 50px;
+    height: 2px;
+  }
+
+  .accordion-item span {
+    width: 28px;
+    height: 28px;
+    margin-right: 12px;
+    font-size: 12px;
+  }
+
+  .accordion-item h2 {
+    font-size: 1rem;
+  }
+}

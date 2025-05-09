@@ -18,6 +18,16 @@ export default function App() {
       )
     );
   }
+  function handleClearAll() {
+    const confirmed = window.confirm(
+      "This will clear all items in the list. Are you sure you want to proceed?"
+    );
+    confirmed && setInventory([]);
+  }
+
+  function handleClearPacked() {
+    setInventory((items) => inventory.filter((item) => !item.packed));
+  }
 
   return (
     <div className="app">
@@ -25,6 +35,8 @@ export default function App() {
       <Form onAddItem={handleAddItem} inventory={inventory} />
       <PackingList
         inventory={inventory}
+        onClearAll={handleClearAll}
+        onClearPacked={handleClearPacked}
         onRemoveItem={handleRemoveItem}
         onPackingItem={handlePackingItem}
       />
@@ -78,7 +90,13 @@ function Form({ onAddItem, inventory }) {
     </form>
   );
 }
-function PackingList({ inventory, onRemoveItem, onPackingItem }) {
+function PackingList({
+  inventory,
+  onClearAll,
+  onClearPacked,
+  onRemoveItem,
+  onPackingItem,
+}) {
   const [sortBy, setSortby] = useState("recency");
   let sorted =
     sortBy === "name"
@@ -107,6 +125,9 @@ function PackingList({ inventory, onRemoveItem, onPackingItem }) {
           <option value="name">Sort by name</option>
           <option value="status">Sort by status</option>
         </select>
+
+        <button onClick={onClearPacked}>Clear packed</button>
+        <button onClick={onClearAll}>Clear All</button>
       </div>
     </div>
   );

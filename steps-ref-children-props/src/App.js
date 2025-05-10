@@ -32,21 +32,21 @@ export default function App() {
           </div>
           <p className="message">{`Step: ${step}: ${messages[step - 1]}`}</p>
           <div className="buttons">
-            <Button btnLabel={"previous"} onClickFunction={handlePreviousBtn} />
-            <Button btnLabel={"next"} onClickFunction={handleNextBtn} />
+            <Button onClickFunction={handlePreviousBtn}>👈 previous</Button>
+            <Button onClickFunction={handleNextBtn}>Next 👉</Button>
           </div>
         </>
       ) : null}
     </div>
   );
 
-  function Button({ btnLabel, onClickFunction }) {
+  function Button({ children, onClickFunction }) {
     return (
       <button
         style={{ backgroundColor: "#7950f2", color: "#ffff" }}
         onClick={onClickFunction}
       >
-        {btnLabel}
+        {children}
       </button>
     );
   }

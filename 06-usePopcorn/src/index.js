@@ -2,12 +2,18 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 // import "./index.css";
 // import App from "./App";
-import { StarRating } from "./components/StarRating";
+import { TextExpander } from "./components/TextExpander";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     {/* <App /> */}
-    <StarRating maxLength={10} color="#FFD700" size={24} defaultRate={3} />
+    <TextExpander>
+      Lizards are a widespread group of squamate reptiles, with over 6,000
+      species, ranging across all continents except Antarctica, to varying
+      degrees of aquatic lifestyle. Lizards are a widespread group of squamate
+      reptiles, with over 6,000 species, ranging across all continents except
+      Antarctica, to varying degrees of aquatic lifestyle.
+    </TextExpander>
   </React.StrictMode>
 );

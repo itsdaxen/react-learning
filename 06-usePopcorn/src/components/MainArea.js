@@ -1,7 +1,8 @@
 import { Box } from "./Box";
 import { LoadingIndicator } from "./LoadingIndicator";
+import { ErrorMessage } from "./ErrorMessage";
 
-export function MainArea({ movies, watched, loading }) {
+export function MainArea({ movies, watched, loading, errorType }) {
   const average = (arr) =>
     arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
@@ -29,6 +30,8 @@ export function MainArea({ movies, watched, loading }) {
               </li>
             ))}
           </ul>
+        ) : errorType ? (
+          <ErrorMessage errorType={errorType} />
         ) : (
           <p
             style={{

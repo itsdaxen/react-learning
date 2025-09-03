@@ -54,6 +54,7 @@ export default function App() {
   const [movies, setMovies] = useState(tempMovieData);
   const [watched, setWatched] = useState(tempWatchedData);
   const [loading, setLoading] = useState(false);
+  const [errorType, setErrortype] = useState("");
 
   function fetchQueryMovies(movies) {
     setMovies(movies);
@@ -63,14 +64,24 @@ export default function App() {
     setLoading(status);
   }
 
+  function errortypeCallback(error) {
+    setErrortype(error);
+  }
+
   return (
     <>
       <NavBar
         movies={movies}
         fetchQueryMovies={fetchQueryMovies}
         loadingStateCallback={loadingStateCallback}
+        errortypeCallback={errortypeCallback}
       />
-      <MainArea movies={movies} watched={watched} loading={loading} />
+      <MainArea
+        movies={movies}
+        watched={watched}
+        loading={loading}
+        errorType={errorType}
+      />
     </>
   );
 }

@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 
-export function NavBar({ fetchQueryMovies, loadingStateCallback }) {
+export function NavBar({
+  fetchQueryMovies,
+  loadingStateCallback,
+  errortypeCallback,
+}) {
   const [query, setQuery] = useState("");
   const [count, setCount] = useState(0);
 
@@ -22,7 +26,8 @@ export function NavBar({ fetchQueryMovies, loadingStateCallback }) {
         setCount(results.length);
         fetchQueryMovies(results);
       } catch (err) {
-        console.error("Fetch failed:", err);
+        console.error("Error:", err);
+        errortypeCallback(String(err));
         fetchQueryMovies([]);
         setCount(0);
       } finally {

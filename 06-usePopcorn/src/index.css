@@ -54,7 +54,7 @@ body {
   max-width: 42rem;
   background-color: var(--color-background-500);
   border-radius: 0.9rem;
-  overflow: hidden;
+  overflow: auto;
   position: relative;
 }
 
@@ -70,6 +70,25 @@ body {
   text-align: center;
   font-size: 2rem;
   padding: 4.8rem;
+}
+
+/* Scrollbar styling */
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #444 #111;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: #111;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #444;
+  border-radius: 6px;
+  border: 2px solid #111;
 }
 
 /* ******* */
@@ -138,7 +157,7 @@ body {
 .list {
   list-style: none;
   padding: 0.8rem 0;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .list-watched {

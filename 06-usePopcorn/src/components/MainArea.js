@@ -1,82 +1,98 @@
-import { useState } from "react";
 import { Box } from "./Box";
+import { LoadingIndicator } from "./LoadingIndicator";
 
-
-export function MainArea({movies, watched}) {
-    const average = (arr) =>
-        arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
+export function MainArea({ movies, watched, loading }) {
+  const average = (arr) =>
+    arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
   const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
   const avgUserRating = average(watched.map((movie) => movie.userRating));
   const avgRuntime = average(watched.map((movie) => movie.runtime));
 
-return (
-<main className="main">
-            <Box>
-                <ul className="list">
-                {movies?.map((movie) => (
-                    <li key={movie.imdbID}>
-                    <img src={movie.Poster} alt={`${movie.Title} poster`} />
-                    <h3>{movie.Title}</h3>
-                    <div>
-                        <p>
-                        <span>🗓</span>
-                        <span>{movie.Year}</span>
-                        </p>
-                    </div>
-                    </li>
-                ))}
-                </ul>
-            </Box>
-
-        <Box>
-            <>
-              <div className="summary">
-                <h2>Movies you watched</h2>
+  return (
+    <main className="main">
+      <Box>
+        {loading ? (
+          <LoadingIndicator />
+        ) : movies.length > 0 ? (
+          <ul className="list">
+            {movies?.map((movie) => (
+              <li key={movie.imdbID}>
+                <img src={movie.Poster} alt={`${movie.Title} poster`} />
+                <h3>{movie.Title}</h3>
                 <div>
                   <p>
-                    <span>#️⃣</span>
-                    <span>{watched.length} movies</span>
+                    <span>🗓</span>
+                    <span>{movie.Year}</span>
                   </p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p
+            style={{
+              fontSize: "2.4rem",
+              fontWeight: 500,
+              color: "#f8f9fa",
+              textAlign: "center",
+              margin: "6rem 0",
+              letterSpacing: "0.05em",
+            }}
+          >
+            No result!
+          </p>
+        )}
+      </Box>
+
+      <Box>
+        <>
+          <div className="summary">
+            <h2>Movies you watched</h2>
+            <div>
+              <p>
+                <span>#️⃣</span>
+                <span>{watched.length} movies</span>
+              </p>
+              <p>
+                <span>⭐️</span>
+                <span>{avgImdbRating}</span>
+              </p>
+              <p>
+                <span>🌟</span>
+                <span>{avgUserRating}</span>
+              </p>
+              <p>
+                <span>⏳</span>
+                <span>{avgRuntime} min</span>
+              </p>
+            </div>
+          </div>
+
+          <ul className="list">
+            {watched.map((movie) => (
+              <li key={movie.imdbID}>
+                <img src={movie.Poster} alt={`${movie.Title} poster`} />
+                <h3>{movie.Title}</h3>
+                <div>
                   <p>
                     <span>⭐️</span>
-                    <span>{avgImdbRating}</span>
+                    <span>{movie.imdbRating}</span>
                   </p>
                   <p>
                     <span>🌟</span>
-                    <span>{avgUserRating}</span>
+                    <span>{movie.userRating}</span>
                   </p>
                   <p>
                     <span>⏳</span>
-                    <span>{avgRuntime} min</span>
+                    <span>{movie.runtime} min</span>
                   </p>
                 </div>
-              </div>
-
-              <ul className="list">
-                {watched.map((movie) => (
-                  <li key={movie.imdbID}>
-                    <img src={movie.Poster} alt={`${movie.Title} poster`} />
-                    <h3>{movie.Title}</h3>
-                    <div>
-                      <p>
-                        <span>⭐️</span>
-                        <span>{movie.imdbRating}</span>
-                      </p>
-                      <p>
-                        <span>🌟</span>
-                        <span>{movie.userRating}</span>
-                      </p>
-                      <p>
-                        <span>⏳</span>
-                        <span>{movie.runtime} min</span>
-                      </p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </>
-        </Box>
-        </main>
-)
+              </li>
+            ))}
+          </ul>
+        </>
+      </Box>
+    </main>
+  );
 }

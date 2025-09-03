@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { NavBar } from "./components/NavBar";
 import { MainArea } from "./components/MainArea";
@@ -50,15 +50,27 @@ const tempWatchedData = [
   },
 ];
 
-
 export default function App() {
   const [movies, setMovies] = useState(tempMovieData);
   const [watched, setWatched] = useState(tempWatchedData);
+  const [loading, setLoading] = useState(false);
+
+  function fetchQueryMovies(movies) {
+    setMovies(movies);
+  }
+
+  function loadingStateCallback(status) {
+    setLoading(status);
+  }
 
   return (
     <>
-  <NavBar movies={movies}/>
-  <MainArea movies={movies} watched={watched}/>
+      <NavBar
+        movies={movies}
+        fetchQueryMovies={fetchQueryMovies}
+        loadingStateCallback={loadingStateCallback}
+      />
+      <MainArea movies={movies} watched={watched} loading={loading} />
     </>
   );
 }

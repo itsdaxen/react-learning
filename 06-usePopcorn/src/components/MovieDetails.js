@@ -17,16 +17,13 @@ export function MovieDetails({
     (m) => m.imdbID === selectedMovie && m.userRating
   );
 
-  function returnStarRating(number) {
+  function handleStarRating(number) {
     setStarRating(number);
-  }
-
-  useEffect(() => {
     if (!selectedMovieDetails) return;
-    const withRating = { ...selectedMovieDetails, userRating: starRating };
+    const withRating = { ...selectedMovieDetails, userRating: number };
     setSelectedMovieDetails(withRating);
     if (isWatched) addToWatchedCallback(withRating);
-  }, [starRating]);
+  }
 
   useEffect(() => {
     async function fetchSelectedMovieDetails() {
@@ -88,7 +85,7 @@ export function MovieDetails({
               <StarRating
                 maxLength={10}
                 size={22}
-                returnStarRating={returnStarRating}
+                handleStarRating={handleStarRating}
                 defaultRate={isRated.length > 0 ? isRated[0].userRating : 0}
               />
             </div>

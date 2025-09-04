@@ -36,7 +36,7 @@ export function StarRating({
   color = "#FFD700",
   size = 24,
   defaultRate = 0,
-  returnStarRating,
+  handleStarRating,
 }) {
   const containerStyles = {
     display: "flex",
@@ -64,7 +64,9 @@ export function StarRating({
   };
 
   const [rating, setRating] = useState(defaultRate);
-  const [ratingMemory, setRatingMemory] = useState(0);
+  const [ratingMemory, setRatingMemory] = useState(
+    defaultRate ? defaultRate : 0
+  );
 
   return (
     <div style={containerStyles}>
@@ -82,7 +84,7 @@ export function StarRating({
             onClick={() => {
               setRating(i + 1);
               setRatingMemory(i + 1);
-              returnStarRating(i + 1);
+              handleStarRating(i + 1);
             }}
             onMouseEnter={() => {
               setRating(i + 1);

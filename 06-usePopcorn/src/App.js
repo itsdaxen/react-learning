@@ -52,7 +52,6 @@ const tempWatchedData = [
 
 export default function App() {
   const [movies, setMovies] = useState(tempMovieData);
-  const [watched, setWatched] = useState(tempWatchedData);
   const [loading, setLoading] = useState(false);
   const [errorType, setErrortype] = useState("");
 
@@ -76,12 +75,7 @@ export default function App() {
         loadingStateCallback={loadingStateCallback}
         errortypeCallback={errortypeCallback}
       />
-      <MainArea
-        movies={movies}
-        watched={watched}
-        loading={loading}
-        errorType={errorType}
-      />
+      <MainArea movies={movies} loading={loading} errorType={errorType} />
     </>
   );
 }

@@ -3,8 +3,13 @@ import { LoadingIndicator } from "./UI/LoadingIndicator";
 import { StarRating } from "./UI/StarRating";
 const apiKey = process.env.REACT_APP_OMDB_KEY;
 
-export function MovieDetails({ selectedMovie, backFromDetails }) {
-  const [selectedMovieDetails, setSelectedMovieDetails] = useState("");
+export function MovieDetails({
+  selectedMovie,
+  backFromDetails,
+  addToWatchedCallback,
+  watched,
+}) {
+  const [selectedMovieDetails, setSelectedMovieDetails] = useState(null);
   const [loadingMovieDetails, setLoadingMovieDetails] = useState(false);
 
   useEffect(() => {
@@ -28,6 +33,7 @@ export function MovieDetails({ selectedMovie, backFromDetails }) {
     }
     fetchSelectedMovieDetails();
   }, [selectedMovie]);
+
   return (
     <div className="details">
       {loadingMovieDetails ? (
@@ -53,6 +59,14 @@ export function MovieDetails({ selectedMovie, backFromDetails }) {
                 <span>⭐️</span>
                 {selectedMovieDetails.imdbRating} IMDb rating
               </p>
+              <button
+                className="btn-add"
+                onClick={() => addToWatchedCallback(selectedMovieDetails)}
+              >
+                {watched.includes(selectedMovieDetails)
+                  ? "Already in Watched"
+                  : "Add to Watched"}
+              </button>
             </div>
           </header>
           <section>

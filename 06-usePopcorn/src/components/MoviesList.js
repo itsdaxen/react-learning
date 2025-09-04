@@ -2,7 +2,11 @@ export function MoviesList({ movies, selectedMovieCallback }) {
   return (
     <ul className="list list-movies">
       {movies?.map((movie) => (
-        <Movie movie={movie} selectedMovieCallback={selectedMovieCallback} />
+        <Movie
+          key={movie.imdbID}
+          movie={movie}
+          selectedMovieCallback={selectedMovieCallback}
+        />
       ))}
     </ul>
   );

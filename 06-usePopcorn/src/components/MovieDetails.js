@@ -13,6 +13,10 @@ export function MovieDetails({
   const [loadingMovieDetails, setLoadingMovieDetails] = useState(false);
   const [starRating, setStarRating] = useState(0);
   const isWatched = watched?.some((m) => m.imdbID === selectedMovie);
+  const isRated = watched.filter(
+    (m) => m.imdbID === selectedMovie && m.userRating
+  );
+  console.log("yessss" + isRated);
 
   function returnStarRating(number) {
     setStarRating(number);
@@ -86,7 +90,7 @@ export function MovieDetails({
                 maxLength={10}
                 size={22}
                 returnStarRating={returnStarRating}
-                // todo: default rating from memory
+                defaultRate={isRated.length > 0 ? isRated[0].userRating : 0}
               />
             </div>
 

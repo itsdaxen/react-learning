@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { LoadingIndicator } from "./LoadingIndicator";
-import { StarRating } from "./StarRating";
+import { LoadingIndicator } from "./UI/LoadingIndicator";
+import { StarRating } from "./UI/StarRating";
 const apiKey = process.env.REACT_APP_OMDB_KEY;
 
 export function MovieDetails({ selectedMovie, backFromDetails }) {
@@ -57,7 +57,7 @@ export function MovieDetails({ selectedMovie, backFromDetails }) {
           </header>
           <section>
             <div className="rating">
-              <StarRating maxLength={10} />
+              <StarRating maxLength={10} size={22} />
             </div>
 
             <p>

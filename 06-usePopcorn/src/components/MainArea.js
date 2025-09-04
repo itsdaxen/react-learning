@@ -1,6 +1,6 @@
-import { Box } from "./Box";
-import { LoadingIndicator } from "./LoadingIndicator";
-import { ErrorMessage } from "./ErrorMessage";
+import { Box } from "./UI/Box";
+import { LoadingIndicator } from "./UI/LoadingIndicator";
+import { ErrorMessage } from "./UI/ErrorMessage";
 import { MoviesList } from "./MoviesList";
 import { useState } from "react";
 import { MovieDetails } from "./MovieDetails";

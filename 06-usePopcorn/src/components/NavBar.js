@@ -8,7 +8,7 @@ export function NavBar({
   const [query, setQuery] = useState("");
   const [count, setCount] = useState(0);
 
-  const apiKey = "6edd928";
+  const apiKey = process.env.REACT_APP_OMDB_KEY;
 
   useEffect(() => {
     if (!query) return;

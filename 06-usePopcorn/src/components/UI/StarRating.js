@@ -36,6 +36,7 @@ export function StarRating({
   color = "#FFD700",
   size = 24,
   defaultRate = 0,
+  returnStarRating,
 }) {
   const containerStyles = {
     display: "flex",
@@ -81,6 +82,7 @@ export function StarRating({
             onClick={() => {
               setRating(i + 1);
               setRatingMemory(i + 1);
+              returnStarRating(rating);
             }}
             onMouseEnter={() => {
               setRating(i + 1);

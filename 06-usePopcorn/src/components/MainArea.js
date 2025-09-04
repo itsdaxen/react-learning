@@ -19,7 +19,12 @@ export function MainArea({ movies, loading, errorType }) {
   }
 
   function addToWatchedCallback(movie) {
-    setWatched((prevItems) => [...prevItems, movie]);
+    if (watched?.some((m) => m.imdbID === movie.imdbID)) {
+      const newList = watched.filter((m) => m.imdbID !== movie.imdbID);
+      setWatched([...newList, movie]);
+    } else {
+      setWatched((prevItems) => [...prevItems, movie]);
+    }
   }
 
   return (

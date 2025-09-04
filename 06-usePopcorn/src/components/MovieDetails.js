@@ -11,6 +11,19 @@ export function MovieDetails({
 }) {
   const [selectedMovieDetails, setSelectedMovieDetails] = useState(null);
   const [loadingMovieDetails, setLoadingMovieDetails] = useState(false);
+  const [starRating, setStarRating] = useState(0);
+  const isWatched = watched?.some((m) => m.imdbID === selectedMovie);
+
+  function returnStarRating(number) {
+    setStarRating(number);
+  }
+
+  useEffect(() => {
+    if (!selectedMovieDetails) return;
+    const withRating = { ...selectedMovieDetails, userRating: starRating };
+    setSelectedMovieDetails(withRating);
+    if (isWatched) addToWatchedCallback(withRating);
+  }, [starRating]);
 
   useEffect(() => {
     async function fetchSelectedMovieDetails() {
@@ -63,15 +76,18 @@ export function MovieDetails({
                 className="btn-add"
                 onClick={() => addToWatchedCallback(selectedMovieDetails)}
               >
-                {watched.includes(selectedMovieDetails)
-                  ? "Already in Watched"
-                  : "Add to Watched"}
+                {isWatched ? "Already in Watched" : "Add to Watched"}
               </button>
             </div>
           </header>
           <section>
             <div className="rating">
-              <StarRating maxLength={10} size={22} />
+              <StarRating
+                maxLength={10}
+                size={22}
+                returnStarRating={returnStarRating}
+                // todo: default rating from memory
+              />
             </div>
 
             <p>

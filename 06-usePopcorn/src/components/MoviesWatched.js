@@ -1,12 +1,15 @@
-export function MoviesWatched({ watched }) {
+export function MoviesWatched({ watched, selectedMovieCallback }) {
   const average = (arr) =>
     arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
   const avgImdbRating = average(
     watched.map((movie) => Number(movie.imdbRating))
   ).toFixed(1);
+  const validatedUserRating = watched.filter(
+    (movie) => movie.userRating !== undefined
+  );
   const avgUserRating = average(
-    watched.map((movie) => Number(movie.userRating))
+    validatedUserRating.map((movie) => Number(movie.userRating))
   ).toFixed(1);
   console.log(watched);
   const avgRuntime = average(
@@ -38,7 +41,11 @@ export function MoviesWatched({ watched }) {
 
       <ul className="list">
         {watched.map((movie) => (
-          <li key={movie.imdbID}>
+          <li
+            key={movie.imdbID}
+            style={{ cursor: "pointer" }}
+            onClick={() => selectedMovieCallback(movie.imdbID)}
+          >
             <img src={movie.Poster} alt={`${movie.Title} poster`} />
             <h3>{movie.Title}</h3>
             <div>

@@ -60,6 +60,7 @@ export function MainArea({ movies, loading, errorType }) {
         backFromDetails={backFromDetails}
         watched={watched}
         addToWatchedCallback={addToWatchedCallback}
+        selectedMovieCallback={selectedMovieCallback}
       >
         {selectedMovie ? (
           <div>
@@ -71,7 +72,10 @@ export function MainArea({ movies, loading, errorType }) {
             />
           </div>
         ) : (
-          <MoviesWatched watched={watched} />
+          <MoviesWatched
+            watched={watched}
+            selectedMovieCallback={selectedMovieCallback}
+          />
         )}
       </Box>
     </main>

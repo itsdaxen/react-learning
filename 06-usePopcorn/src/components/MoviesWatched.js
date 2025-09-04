@@ -11,7 +11,6 @@ export function MoviesWatched({ watched, selectedMovieCallback }) {
   const avgUserRating = average(
     validatedUserRating.map((movie) => Number(movie.userRating))
   ).toFixed(1);
-  console.log(watched);
   const avgRuntime = average(
     watched.map((movie) => parseInt(movie.Runtime) || 0)
   ).toFixed(1);

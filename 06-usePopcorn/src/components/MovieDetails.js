@@ -16,7 +16,6 @@ export function MovieDetails({
   const isRated = watched.filter(
     (m) => m.imdbID === selectedMovie && m.userRating
   );
-  console.log("yessss" + isRated);
 
   function returnStarRating(number) {
     setStarRating(number);
@@ -63,7 +62,7 @@ export function MovieDetails({
             </button>
             <img
               src={selectedMovieDetails.Poster}
-              alt={`Poster of ${selectedMovieDetails.Movie} movie`}
+              alt={`Poster of ${selectedMovieDetails.Title} movie`}
             />
             <div className="details-overview">
               <h2>{selectedMovieDetails.Title}</h2>
@@ -102,7 +101,7 @@ export function MovieDetails({
           </section>
         </>
       ) : (
-        <p>Unkown issue</p>
+        <p>Unknown issue</p>
       )}
     </div>
   );

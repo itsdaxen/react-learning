@@ -82,7 +82,7 @@ export function StarRating({
             onClick={() => {
               setRating(i + 1);
               setRatingMemory(i + 1);
-              returnStarRating(rating);
+              returnStarRating(i + 1);
             }}
             onMouseEnter={() => {
               setRating(i + 1);

@@ -11,14 +11,12 @@ export function MovieDetails({
 }) {
   const [selectedMovieDetails, setSelectedMovieDetails] = useState(null);
   const [loadingMovieDetails, setLoadingMovieDetails] = useState(false);
-  const [starRating, setStarRating] = useState(0);
   const isWatched = watched?.some((m) => m.imdbID === selectedMovie);
   const isRated = watched.filter(
     (m) => m.imdbID === selectedMovie && m.userRating
   );
 
   function handleStarRating(number) {
-    setStarRating(number);
     if (!selectedMovieDetails) return;
     const withRating = { ...selectedMovieDetails, userRating: number };
     setSelectedMovieDetails(withRating);

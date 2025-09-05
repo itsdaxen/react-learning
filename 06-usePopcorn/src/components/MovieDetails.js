@@ -31,13 +31,10 @@ export function MovieDetails({
           `https://www.omdbapi.com/?apikey=${apiKey}&i=${selectedMovie}`
         );
         const data = await res.json();
-        console.log(data);
-        // TODO: validation logic
         const result = data;
         setSelectedMovieDetails(result);
       } catch (err) {
         console.error("Error:", err);
-        // TODO: further error handling
       } finally {
         setLoadingMovieDetails(false);
       }

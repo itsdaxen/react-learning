@@ -5,8 +5,9 @@ import { MoviesList } from "./MoviesList";
 import { useState } from "react";
 import { MovieDetails } from "./MovieDetails";
 import { MoviesWatched } from "./MoviesWatched";
+import { Feedback } from "./UI/Feedback";
 
-export function MainArea({ movies, loading, errorType }) {
+export function MainArea({ movies, loading, apiInternalError, errorType }) {
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [watched, setWatched] = useState([]);
 
@@ -32,26 +33,17 @@ export function MainArea({ movies, loading, errorType }) {
       <Box selectedMovieCallback={selectedMovieCallback}>
         {loading ? (
           <LoadingIndicator />
+        ) : errorType ? (
+          <ErrorMessage errorType={errorType} />
+        ) : apiInternalError ? (
+          <Feedback>{apiInternalError}</Feedback>
         ) : movies.length > 0 ? (
           <MoviesList
             movies={movies}
             selectedMovieCallback={selectedMovieCallback}
           />
-        ) : errorType ? (
-          <ErrorMessage errorType={errorType} />
         ) : (
-          <p
-            style={{
-              fontSize: "2.4rem",
-              fontWeight: 500,
-              color: "#f8f9fa",
-              textAlign: "center",
-              margin: "6rem 0",
-              letterSpacing: "0.05em",
-            }}
-          >
-            No result!
-          </p>
+          <Feedback>No Result!</Feedback>
         )}
       </Box>
 

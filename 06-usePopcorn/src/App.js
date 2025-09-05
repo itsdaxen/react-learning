@@ -53,6 +53,7 @@ const tempWatchedData = [
 export default function App() {
   const [movies, setMovies] = useState(tempMovieData);
   const [loading, setLoading] = useState(false);
+  const [apiInternalError, setApiInternalError] = useState("");
   const [errorType, setErrortype] = useState("");
 
   function fetchQueryMovies(movies) {
@@ -61,6 +62,10 @@ export default function App() {
 
   function loadingStateCallback(status) {
     setLoading(status);
+  }
+
+  function apiInternalErrorCallbac(err) {
+    setApiInternalError(err);
   }
 
   function errortypeCallback(error) {
@@ -73,9 +78,15 @@ export default function App() {
         movies={movies}
         fetchQueryMovies={fetchQueryMovies}
         loadingStateCallback={loadingStateCallback}
+        apiInternalErrorCallback={apiInternalErrorCallbac}
         errortypeCallback={errortypeCallback}
       />
-      <MainArea movies={movies} loading={loading} errorType={errorType} />
+      <MainArea
+        movies={movies}
+        loading={loading}
+        apiInternalError={apiInternalError}
+        errorType={errorType}
+      />
     </>
   );
 }

@@ -49,6 +49,19 @@ export function MovieDetails({
     return () => (document.title = "UsePopcorn");
   }, [selectedMovieDetails]);
 
+  useEffect(() => {
+    const handleEsc = (event) => {
+      if (event.key === "Escape") {
+        backFromDetails();
+      }
+    };
+    document.addEventListener("keydown", handleEsc);
+
+    return () => {
+      document.removeEventListener("keydown", handleEsc);
+    };
+  }, [backFromDetails]);
+
   return (
     <div className="details">
       {loadingMovieDetails ? (

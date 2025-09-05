@@ -47,6 +47,13 @@ export function MovieDetails({
     fetchSelectedMovieDetails();
   }, [selectedMovie]);
 
+  useEffect(() => {
+    document.title = selectedMovieDetails?.Title
+      ? "Movie | " + selectedMovieDetails.Title
+      : "UsePopcorn";
+    return () => (document.title = "UsePopcorn");
+  }, [selectedMovieDetails]);
+
   return (
     <div className="details">
       {loadingMovieDetails ? (

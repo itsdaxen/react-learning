@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export function NavBar({
   fetchQueryMovies,
@@ -47,6 +47,11 @@ export function NavBar({
     return () => controller.abort();
   }, [query]);
 
+  const inputRef = useRef();
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
   return (
     <nav className="nav-bar">
       <div className="logo">
@@ -59,6 +64,7 @@ export function NavBar({
         placeholder="Search movies..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
+        ref={inputRef}
       />
       <p className="num-results">
         Found <strong>{count}</strong> results

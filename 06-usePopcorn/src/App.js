@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 import { NavBar } from "./components/NavBar";
 import { MainArea } from "./components/MainArea";
@@ -56,21 +56,21 @@ export default function App() {
   const [apiInternalError, setApiInternalError] = useState("");
   const [errorType, setErrortype] = useState("");
 
-  function fetchQueryMovies(movies) {
+  const fetchQueryMovies = useCallback((movies) => {
     setMovies(movies);
-  }
+  }, []);
 
-  function loadingStateCallback(status) {
+  const loadingStateCallback = useCallback((status) => {
     setLoading(status);
-  }
+  }, []);
 
-  function apiInternalErrorCallbac(err) {
+  const apiInternalErrorCallbac = useCallback((err) => {
     setApiInternalError(err);
-  }
+  }, []);
 
-  function errortypeCallback(error) {
+  const errortypeCallback = useCallback((error) => {
     setErrortype(error);
-  }
+  }, []);
 
   return (
     <>

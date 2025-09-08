@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { LoadingIndicator } from "./UI/LoadingIndicator";
 import { StarRating } from "./UI/StarRating";
 const apiKey = process.env.REACT_APP_OMDB_KEY;
@@ -12,13 +12,23 @@ export function MovieDetails({
   const [selectedMovieDetails, setSelectedMovieDetails] = useState(null);
   const [loadingMovieDetails, setLoadingMovieDetails] = useState(false);
   const isWatched = watched?.some((m) => m.imdbID === selectedMovie);
-  const isRated = watched.filter(
-    (m) => m.imdbID === selectedMovie && m.userRating
+  const isRated = watched.find(
+    (m) => m.imdbID === selectedMovie && m.userRating && m.clickLog
   );
+
+  const logClickCounts = useRef(isRated ? isRated.clickLog : 0);
 
   function handleStarRating(number) {
     if (!selectedMovieDetails) return;
-    const withRating = { ...selectedMovieDetails, userRating: number };
+    logClickCounts.current++;
+    console.log(
+      `StarRating: Star has been clicked ${logClickCounts.current} times for ${selectedMovieDetails.Title}.`
+    );
+    const withRating = {
+      ...selectedMovieDetails,
+      userRating: number,
+      clickLog: logClickCounts.current,
+    };
     setSelectedMovieDetails(withRating);
     if (isWatched) addToWatchedCallback(withRating);
   }
@@ -101,7 +111,7 @@ export function MovieDetails({
                 maxLength={10}
                 size={22}
                 handleStarRating={handleStarRating}
-                defaultRate={isRated.length > 0 ? isRated[0].userRating : 0}
+                defaultRate={isRated ? isRated.userRating : 0}
               />
             </div>
 

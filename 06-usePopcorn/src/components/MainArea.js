@@ -68,6 +68,7 @@ export function MainArea({ movies, loading, apiInternalError, errorType }) {
         {selectedMovie ? (
           <div>
             <MovieDetails
+              key={selectedMovie}
               selectedMovie={selectedMovie}
               backFromDetails={backFromDetails}
               addToWatchedCallback={addToWatchedCallback}

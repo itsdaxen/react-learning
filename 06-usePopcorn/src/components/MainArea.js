@@ -2,21 +2,15 @@ import { Box } from "./UI/Box";
 import { LoadingIndicator } from "./UI/LoadingIndicator";
 import { ErrorMessage } from "./UI/ErrorMessage";
 import { MoviesList } from "./MoviesList";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { MovieDetails } from "./MovieDetails";
 import { MoviesWatched } from "./MoviesWatched";
 import { Feedback } from "./UI/Feedback";
+import { useLocalStorage } from "../hooks/useLocalSrorage";
 
 export function MainArea({ movies, loading, apiInternalError, errorType }) {
   const [selectedMovie, setSelectedMovie] = useState(null);
-  const [watched, setWatched] = useState(() => {
-    try {
-      const raw = localStorage.getItem("watched");
-      return raw ? JSON.parse(raw) : [];
-    } catch {
-      return [];
-    }
-  });
+  const [watched, setWatched] = useLocalStorage("watched") || [];
 
   function selectedMovieCallback(movie) {
     setSelectedMovie(movie);
@@ -34,10 +28,6 @@ export function MainArea({ movies, loading, apiInternalError, errorType }) {
       setWatched((prevItems) => [...prevItems, movie]);
     }
   }
-
-  useEffect(() => {
-    localStorage.setItem("watched", JSON.stringify(watched));
-  }, [watched]);
 
   return (
     <main className="main">

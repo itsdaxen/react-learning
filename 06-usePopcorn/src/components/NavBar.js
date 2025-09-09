@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useMovies } from "../hooks/useMovies";
+import { useKey } from "../hooks/useKey";
 
 export function NavBar({
   fetchQueryMovies,
@@ -20,12 +21,9 @@ export function NavBar({
   const inputRef = useRef();
   useEffect(() => {
     inputRef.current.focus();
-    const handleEnt = (e) => {
-      if (e.key === "Enter") inputRef.current.focus();
-    };
-    document.addEventListener("keydown", handleEnt);
-    return () => document.removeEventListener("keydown", handleEnt);
   }, []);
+
+  useKey("Enter", () => inputRef.current.focus());
 
   return (
     <nav className="nav-bar">

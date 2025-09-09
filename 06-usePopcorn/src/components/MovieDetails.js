@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { LoadingIndicator } from "./UI/LoadingIndicator";
 import { StarRating } from "./UI/StarRating";
+import { useKey } from "../hooks/useKey";
 const apiKey = process.env.REACT_APP_OMDB_KEY;
 
 export function MovieDetails({
@@ -59,18 +60,7 @@ export function MovieDetails({
     return () => (document.title = "UsePopcorn");
   }, [selectedMovieDetails]);
 
-  useEffect(() => {
-    const handleEsc = (event) => {
-      if (event.key === "Escape") {
-        backFromDetails();
-      }
-    };
-    document.addEventListener("keydown", handleEsc);
-
-    return () => {
-      document.removeEventListener("keydown", handleEsc);
-    };
-  }, [backFromDetails]);
+  useKey("Escape", backFromDetails);
 
   return (
     <div className="details">

@@ -1,7 +1,14 @@
-import { useState } from "react";
+import { useReducer, useState } from "react";
 
 function App() {
-  const [count, setCount] = useState(0);
+
+  function reducer(state, action) {
+    if (action.type === "add") return state + action.payload;
+    if (action.type === "dec") return state - action.payload;
+
+  }
+  
+  const [count, dispatch] = useReducer(reducer, 0);
   const [step, setStep] = useState("1");
 
   const date = new Date();
@@ -10,13 +17,14 @@ function App() {
   function addDate() {
     let validateStep = parseInt(step, 10);
     validateStep = !Number.isNaN(validateStep) ? validateStep : 0;
-    setCount((cur) => cur + validateStep);
+    dispatch({type: "add", payload: validateStep});
   }
 
   function reduceDate() {
     let validateStep = parseInt(step, 10);
     validateStep = !Number.isNaN(validateStep) ? validateStep : 0;
-    setCount((cur) => cur - validateStep);
+    dispatch({type: "dec", payload: validateStep});
+
   }
 
   return (

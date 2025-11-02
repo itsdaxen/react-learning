@@ -1,0 +1,15 @@
+import React from "react";
+import Options from "./Options";
+
+const Questions = ({ question, dispatch, answer }) => {
+  return (
+    <div>
+      <h4>{question.question}</h4>
+      <Options question={question} dispatch={dispatch} answer={answer} />
+      <button onClick={() => dispatch({ type: "prev" })}>Previous</button>
+      <button onClick={() => dispatch({ type: "next" })}>Next</button>
+    </div>
+  );
+};
+
+export default Questions;

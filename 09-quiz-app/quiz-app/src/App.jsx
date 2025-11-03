@@ -7,6 +7,8 @@ import Questions from "./components/Questions.jsx";
 import Error from "./components/Error.jsx";
 import FinishScreen from "./components/FinishScreen.jsx";
 
+const SECONDS_PER_QUESTION = 30;
+
 const initialState = {
   questions: [],
 
@@ -16,6 +18,7 @@ const initialState = {
   answer: null,
   score: 0,
   highscore: 0,
+  secondsRemaining: null,
 };
 
 const reducer = (state, action) => {
@@ -35,6 +38,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         status: "active",
+        secondsRemaining: state.questions.length * SECONDS_PER_QUESTION,
       };
     case "next":
       return {
@@ -66,9 +70,15 @@ const reducer = (state, action) => {
     case "restart":
       return {
         ...initialState,
-        status: "start",
+        status: "ready",
         questions: state.questions,
         highscore: state.highscore,
+      };
+    case "timeElapsing":
+      return {
+        ...state,
+        secondsRemaining: state.secondsRemaining - 1,
+        status: state.secondsRemaining === 0 ? "finished" : state.status,
       };
     default:
       throw new Error("Action unknown");
@@ -77,7 +87,15 @@ const reducer = (state, action) => {
 
 function App() {
   const [
-    { questions, status, currentIndex, answer, score, highscore },
+    {
+      questions,
+      status,
+      currentIndex,
+      answer,
+      score,
+      highscore,
+      secondsRemaining,
+    },
     dispatch,
   ] = useReducer(reducer, initialState);
 
@@ -117,6 +135,7 @@ function App() {
             questionsLength={questionsLength}
             currentIndex={currentIndex}
             maxPossibleScore={maxPossibleScore}
+            secondsRemaining={secondsRemaining}
           />
         ) : status === "finished" ? (
           <FinishScreen

@@ -1,6 +1,7 @@
 import React from "react";
 import Options from "./Options";
 import Progress from "./Progress";
+import Timer from "./Timer";
 
 const Questions = ({
   question,
@@ -10,6 +11,7 @@ const Questions = ({
   questionsLength,
   currentIndex,
   maxPossibleScore,
+  secondsRemaining,
 }) => {
   return (
     <div>
@@ -34,6 +36,7 @@ const Questions = ({
           {currentIndex < questionsLength - 1 ? "Next" : "Finish"}
         </button>
       )}
+      <Timer dispatch={dispatch} secondsRemaining={secondsRemaining} />
     </div>
   );
 };
